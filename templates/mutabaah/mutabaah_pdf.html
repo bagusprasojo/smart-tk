@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: "Arial", sans-serif; font-size: 12px; }
+        h1 { text-align: center; font-size: 18px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #333; padding: 8px; text-align: left; vertical-align: top; }
+        .meta { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Laporan Mutabaah</h1>
+    <p class="meta">
+        Siswa: <strong>{{ entry.student.name }}</strong><br>
+        Guru: <strong>{{ entry.teacher }}</strong><br>
+        Tanggal: <strong>{{ entry.date|date:"d M Y" }}</strong>
+    </p>
+    <table>
+        <tr><th>Ibadah</th><td>{{ entry.ibadah }}</td></tr>
+        <tr><th>Sikap</th><td>{{ entry.sikap }}</td></tr>
+        <tr><th>Hafalan</th><td>{{ entry.hafalan }}</td></tr>
+        <tr><th>Motorik</th><td>{{ entry.motorik }}</td></tr>
+        <tr><th>Kemandirian</th><td>{{ entry.kemandirian }}</td></tr>
+        <tr><th>Catatan</th><td>{{ entry.catatan|default:'-' }}</td></tr>
+    </table>
+</body>
+</html>

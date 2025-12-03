@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Detail Mutabaah{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4">Detail Mutabaah</h1>
+    <div>
+        {% if user.role == 'ADMIN' or user.role == 'GURU' %}
+            <a class="btn btn-outline-secondary btn-sm" href="{% url 'mutabaah_edit' entry.pk %}">Edit</a>
+        {% endif %}
+        <a class="btn btn-primary btn-sm" href="{% url 'mutabaah_pdf' entry.pk %}">Download PDF</a>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Siswa</dt><dd class="col-sm-9">{{ entry.student.name }}</dd>
+            <dt class="col-sm-3">Guru</dt><dd class="col-sm-9">{{ entry.teacher }}</dd>
+            <dt class="col-sm-3">Tanggal</dt><dd class="col-sm-9">{{ entry.date|date:"d M Y" }}</dd>
+            <dt class="col-sm-3">Ibadah</dt><dd class="col-sm-9">{{ entry.ibadah|linebreaks }}</dd>
+            <dt class="col-sm-3">Sikap</dt><dd class="col-sm-9">{{ entry.sikap|linebreaks }}</dd>
+            <dt class="col-sm-3">Hafalan</dt><dd class="col-sm-9">{{ entry.hafalan|linebreaks }}</dd>
+            <dt class="col-sm-3">Motorik</dt><dd class="col-sm-9">{{ entry.motorik|linebreaks }}</dd>
+            <dt class="col-sm-3">Kemandirian</dt><dd class="col-sm-9">{{ entry.kemandirian|linebreaks }}</dd>
+            <dt class="col-sm-3">Catatan</dt><dd class="col-sm-9">{{ entry.catatan|default:'-'|linebreaks }}</dd>
+        </dl>
+    </div>
+</div>
+{% endblock %}

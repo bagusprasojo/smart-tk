@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h4 mb-0">Dashboard</h1>
+        <p class="text-muted mb-0">Ringkasan aktivitas per {{ now|date:"d M Y, H:i" }}</p>
+    </div>
+    {% if user.role == 'ADMIN' %}
+        <a class="btn btn-outline-primary" href="{% url 'user_list' %}">Kelola Pengguna</a>
+    {% endif %}
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted text-uppercase">Siswa</h6>
+                <p class="display-6 mb-0">{{ student_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted text-uppercase">Mutabaah</h6>
+                <p class="display-6 mb-0">{{ mutabaah_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted text-uppercase">Artikel</h6>
+                <p class="display-6 mb-0">{{ article_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted text-uppercase">Pengguna</h6>
+                <p class="display-6 mb-0">{{ users_total }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="h5 mb-0">Mutabaah Terbaru</h2>
+        <a href="{% url 'mutabaah_list' %}" class="btn btn-sm btn-outline-secondary">Lihat semua</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Siswa</th>
+                    <th>Guru</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in latest_entries %}
+                    <tr>
+                        <td>{{ entry.date|date:"d M Y" }}</td>
+                        <td>{{ entry.student.name }}</td>
+                        <td>{{ entry.teacher }}</td>
+                        <td><a href="{% url 'mutabaah_detail' entry.pk %}" class="btn btn-sm btn-link">Detail</a></td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-muted">Belum ada data.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

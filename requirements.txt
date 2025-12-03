@@ -1,0 +1,6 @@
+Django==5.1.1
+WeasyPrint==60.1
+Pillow==10.4.0
+pydyf==0.8.0
+tzdata==2025.2
+

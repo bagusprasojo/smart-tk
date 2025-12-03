@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Sistem Informasi TK - Smart TK{% endblock %}
+{% block container_class %}container-lg{% endblock %}
+{% block content %}
+<section class="py-5 text-center">
+    <h1 class="display-5 fw-bold">Sistem Informasi Website & Mutabaah TK</h1>
+    <p class="lead text-muted mb-4">
+        Platform terpadu untuk publikasi profil sekolah serta evaluasi perkembangan anak secara digital.
+    </p>
+    <div>
+        <a class="btn btn-primary btn-lg me-2" href="{% url 'login' %}">Masuk Dashboard</a>
+        <a class="btn btn-outline-primary btn-lg" href="#fitur">Lihat Fitur</a>
+    </div>
+</section>
+
+<section id="fitur" class="py-5">
+    <h2 class="h4 text-uppercase text-muted mb-4">Fitur Unggulan</h2>
+    <div class="row g-4">
+        {% for feature in features %}
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h3 class="h5">{{ feature }}</h3>
+                        <p class="text-muted">Mendukung operasional sekolah secara daring.</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h4">Artikel Terbaru</h2>
+        <a href="{% url 'article_list' %}" class="btn btn-link">Semua artikel</a>
+    </div>
+    <div class="row g-4">
+        {% for article in articles %}
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h3 class="h5"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+                        <p class="text-muted small mb-2">{{ article.created_at|date:"d M Y" }}</p>
+                        <p>{{ article.content|truncatewords:30 }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">Belum ada artikel terbit.</div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Detail Siswa{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-3">
+            {% if student.photo %}
+                <img src="{{ student.photo.url }}" class="card-img-top" alt="{{ student.name }}">
+            {% endif %}
+            <div class="card-body">
+                <h1 class="h5">{{ student.name }}</h1>
+                <p class="text-muted mb-1">Kelas: {{ student.class_name }}</p>
+                <p class="text-muted mb-1">Orang Tua: {{ student.parents_name }}</p>
+                <p class="text-muted mb-0">Kontak: {{ student.parents_phone }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 class="h5 mb-0">Mutabaah</h2>
+                <a class="btn btn-sm btn-outline-primary" href="{% url 'mutabaah_list' %}?student={{ student.id }}">Lihat semua</a>
+            </div>
+            <div class="card-body">
+                <p>Gunakan menu Mutabaah untuk melihat catatan perkembangan anak.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
