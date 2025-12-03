@@ -18,3 +18,11 @@ class MutabaahForm(forms.ModelForm):
             'kemandirian',
             'catatan',
         )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            css_classes = field.widget.attrs.get('class', '')
+            field.widget.attrs['class'] = f'{css_classes} form-control'.strip()
+            if isinstance(field.widget, forms.Textarea):
+                field.widget.attrs.setdefault('rows', 3)

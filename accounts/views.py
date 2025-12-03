@@ -5,11 +5,12 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 
 from core.mixins import RoleRequiredMixin
-from .forms import UserForm
+from .forms import LoginForm, UserForm
 
 
 class UserLoginView(LoginView):
     template_name = 'accounts/login.html'
+    form_class = LoginForm
 
 
 def logout_view(request):
