@@ -2,26 +2,82 @@
 {% block title %}Sistem Informasi TK - Smart TK{% endblock %}
 {% block container_class %}container-lg{% endblock %}
 {% block content %}
-<section class="py-5 text-center">
-    <h1 class="display-5 fw-bold">Sistem Informasi Website & Mutabaah TK</h1>
-    <p class="lead text-muted mb-4">
-        Platform terpadu untuk publikasi profil sekolah serta evaluasi perkembangan anak secara digital.
-    </p>
-    <div>
-        <a class="btn btn-primary btn-lg me-2" href="{% url 'login' %}">Masuk Dashboard</a>
-        <a class="btn btn-outline-primary btn-lg" href="#fitur">Lihat Fitur</a>
+<section class="py-5">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <p class="text-uppercase text-primary fw-semibold mb-2">Selamat datang di</p>
+            <h1 class="display-5 fw-bold">{{ school_profile.name }}</h1>
+            <p class="lead text-muted mb-4">{{ school_profile.tagline }}</p>
+            <p class="fs-5">{{ school_profile.description }}</p>
+            <div class="d-flex flex-wrap gap-3 mt-4">
+                <a class="btn btn-primary btn-lg" href="{% url 'login' %}">Portal Guru & Orang Tua</a>
+                <a class="btn btn-outline-primary btn-lg" href="#profil">Lihat Profil Sekolah</a>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card shadow border-0 h-100">
+                <div class="card-body">
+                    <h2 class="h4 mb-3">Visi</h2>
+                    <p>{{ school_profile.vision }}</p>
+                    <h3 class="h5 mt-4 mb-3">Misi</h3>
+                    <ul class="list-unstyled">
+                        {% for mission in school_profile.mission %}
+                            <li class="mb-2 d-flex">
+                                <span class="text-primary me-2">&#10003;</span>
+                                <span>{{ mission }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="profil" class="py-5">
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="h4 mb-3">Profil TK</h2>
+                    <p class="mb-2"><strong>Alamat:</strong> {{ school_profile.address }}</p>
+                    <p class="mb-2"><strong>Jam Operasional:</strong> {{ school_profile.operational_hours }}</p>
+                    <p class="mb-0 text-muted">
+                        Kami memiliki ruang kelas nyaman, area bermain outdoor, serta program tahfidz ringan yang dikemas menyenangkan bagi anak.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border border-success">
+                <div class="card-body">
+                    <h2 class="h4 mb-3">Informasi Kontak</h2>
+                    <p class="mb-2">Nomor WhatsApp: <strong>{{ contact_info.whatsapp_display }}</strong></p>
+                    <p class="mb-4">Email: <strong>{{ contact_info.email }}</strong></p>
+                    <a class="btn btn-success btn-lg w-100" href="https://wa.me/{{ contact_info.whatsapp_link }}" target="_blank" rel="noopener">
+                        Hubungi via WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 <section id="fitur" class="py-5">
-    <h2 class="h4 text-uppercase text-muted mb-4">Fitur Unggulan</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <p class="text-uppercase text-muted fw-semibold mb-1">Program Unggulan</p>
+            <h2 class="h4 mb-0">Kenapa memilih {{ school_profile.name }}?</h2>
+        </div>
+        <a class="btn btn-link" href="{% url 'article_list' %}">Lihat Kegiatan</a>
+    </div>
     <div class="row g-4">
         {% for feature in features %}
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
+                <div class="card h-100 shadow-sm border-0">
                     <div class="card-body">
                         <h3 class="h5">{{ feature }}</h3>
-                        <p class="text-muted">Mendukung operasional sekolah secara daring.</p>
+                        <p class="text-muted">Dirancang untuk mendukung perkembangan akhlak, kognitif, dan sosial anak.</p>
                     </div>
                 </div>
             </div>
@@ -31,8 +87,8 @@
 
 <section class="py-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="h4">Artikel Terbaru</h2>
-        <a href="{% url 'article_list' %}" class="btn btn-link">Semua artikel</a>
+        <h2 class="h4">Artikel & Kegiatan Terbaru</h2>
+        <a href="{% url 'article_list' %}" class="btn btn-outline-primary btn-sm">Semua artikel</a>
     </div>
     <div class="row g-4">
         {% for article in articles %}
